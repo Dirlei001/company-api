@@ -8,4 +8,5 @@ import java.util.List;
 public interface CompanyService {
     void create(Company company);
     Page<Company> list(Integer page, Integer pageSize);
+    Company findById(Long id);
 }

@@ -1,6 +1,7 @@
 package com.company.api.service;
 
 import com.company.api.entity.Company;
+import com.company.api.exceptions.ObjectNotFoundException;
 import com.company.api.repository.CompanyRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -37,5 +39,15 @@ public class CompanyServiceImpl implements CompanyService {
         Pageable pageable = PageRequest.of(page, pageSize);
 
         return this.companyRepository.findAll(pageable);
+    }
+
+    @Override
+    public Company findById(Long id) {
+        Optional<Company> company = this.companyRepository.findById(id);
+        if(company.isPresent()){
+            return company.get();
+        } else{
+            throw new ObjectNotFoundException("não encontrado");
+        }
     }
 }

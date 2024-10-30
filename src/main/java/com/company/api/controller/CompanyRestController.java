@@ -24,4 +24,8 @@ public class CompanyRestController {
     public ResponseEntity<Page<Company>> list(@RequestParam Integer page, @RequestParam Integer pageSize){
         return ResponseEntity.ok(this.companyService.list(page, pageSize));
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Company> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(this.companyService.findById(id));
+    }
 }
